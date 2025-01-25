@@ -5,7 +5,7 @@ const customFormate = printf(({ level, message, timestamp }) => {
     return `${timestamp} : ${level}: ${message}`;
 });
 
-export const logger = createLogger({
+export const Logger = createLogger({
     format: combine(
         timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
         customFormate
