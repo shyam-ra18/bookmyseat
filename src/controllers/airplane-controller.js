@@ -1,5 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { createAirplaneService } from "../services/airplane-service.js";
+import { errorResponse } from "../utils/common/error-response.js";
+import { successResponse } from "../utils/common/success-response.js";
 
 export async function createAirplaneController(req, res) {
     try {
@@ -8,18 +10,15 @@ export async function createAirplaneController(req, res) {
             modelNumber,
             capacity
         });
-        return res.status(StatusCodes.CREATED).json({
-            success: true,
-            message: 'Airplane created successfully',
-            data: airplane,
-            error: {},
-        })
+        successResponse.message = "Airplane created successfully.";
+        successResponse.data = airplane;
+
+        return res.status(StatusCodes.CREATED).json(successResponse);
     } catch (error) {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            success: false,
-            message: 'Something went wrong while creating an airplane',
-            data: {},
-            error: error
-        })
+        errorResponse.message = "Something went wrong while creating an airplane.";
+        errorResponse.error = {
+            explanation: error.message || "Unexpected error occurred",
+        };
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
     }
 }
