@@ -7,7 +7,6 @@ export class CrudRepository {
 
     async create(data) {
         try {
-            console.log("this.model:", this.model);
             // Prisma create method is slightly different than Sequelize
             const response = await this.model.create({
                 data: data
