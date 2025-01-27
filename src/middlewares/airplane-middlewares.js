@@ -31,6 +31,5 @@ export const validateCreateRequest = (req, res, next) => {
         return res.status(StatusCodes.BAD_REQUEST).json(errorResponse);
     }
 
-    // If all validations pass, proceed to the next middleware
     next();
 };

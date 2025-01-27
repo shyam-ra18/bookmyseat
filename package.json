@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "node --watch src/index.js"
   },
+  "prisma": {
+    "seed": "node src/seeders/seed.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

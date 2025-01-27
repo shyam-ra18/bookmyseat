@@ -15,10 +15,8 @@ export async function createAirplaneController(req, res) {
 
         return res.status(StatusCodes.CREATED).json(successResponse);
     } catch (error) {
-        errorResponse.message = "Something went wrong while creating an airplane.";
-        errorResponse.error = {
-            explanation: error.message || "Unexpected error occurred",
-        };
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
+        // errorResponse.message = "Something went wrong while creating an airplane.";
+        errorResponse.error = error
+        return res.status(error.statusCode).json(errorResponse);
     }
 }

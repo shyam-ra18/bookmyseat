@@ -13,7 +13,6 @@ export class CrudRepository {
             });
             return response;
         } catch (error) {
-            console.log(error);
             Logger.error('Something went wrong in the Crud Repo: Create');
             throw error;
         }

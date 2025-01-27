@@ -4,6 +4,6 @@ import { validateCreateRequest } from "../../middlewares/airplane-middlewares.js
 
 const router = Router();
 
-router.post('/', validateCreateRequest, createAirplaneController);
+router.post('/', createAirplaneController);
 
 export const airplaneRoutes = router;

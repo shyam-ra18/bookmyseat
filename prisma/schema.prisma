@@ -7,10 +7,52 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// model Airplane {
+//   id          Int      @id @default(autoincrement()) // Auto-incrementing primary key
+//   modelNumber String
+//   capacity    Int
+//   createdAt   DateTime @default(now()) @db.Timestamptz
+//   updatedAt   DateTime @updatedAt @db.Timestamptz
+// }
+
 model Airplane {
-  id          Int      @id @default(autoincrement()) // Auto-incrementing primary key
-  modelNumber String
-  capacity    Int
-  createdAt   DateTime @default(now()) @db.Timestamptz
-  updatedAt   DateTime @updatedAt @db.Timestamptz
+  id                  String   @id @default(uuid()) // Unique identifier
+  name                String // Name or model of the airplane (e.g., Boeing 737, Airbus A320)
+  manufacturer        String // Manufacturer (e.g., Boeing, Airbus)
+  registrationNumber  String   @unique // Unique registration number
+  capacity            Int // Total seating capacity
+  economySeats        Int // Number of economy class seats
+  businessSeats       Int? // Number of business class seats (optional)
+  firstClassSeats     Int? // Number of first class seats (optional)
+  totalWeightCapacity Float? // Maximum weight capacity (optional)
+  range               Int? // Maximum distance the airplane can travel
+  fuelCapacity        Float? // Fuel capacity (optional)
+  status              Status   @default(ACTIVE) // Status (enum: ACTIVE, MAINTENANCE, RETIRED, etc.)
+  inService           Boolean  @default(true) // Whether it's in operation
+  manufactureDate     DateTime // Date of manufacture
+  lastMaintenanceDate DateTime // Last maintenance date
+  flights             Flight[]
+  createdAt           DateTime @default(now()) // Auto-set creation timestamp
+  updatedAt           DateTime @updatedAt // Auto-update timestamp
+
+  // @@map("airplanes")
+}
+
+model Flight {
+  id         String   @id @default(uuid())
+  flightCode String   @unique
+  airplaneId String
+  airplane   Airplane @relation(fields: [airplaneId], references: [id])
+  departure  DateTime
+  arrival    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// Enum for the airplane's status
+enum Status {
+  ACTIVE
+  MAINTENANCE
+  RETIRED
+  INOPERATIVE
 }
