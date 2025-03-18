@@ -34,3 +34,12 @@ export async function getAirplaneById(id) {
         throw new AppError('Cannot get the airplen', StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
+
+export async function deleteAirplane(id) {
+    try {
+        const airplane = await airplaneRepository.destroy(id);
+        return airplane;
+    } catch (error) {
+        throw new AppError('Cannot delete the airplen', StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}

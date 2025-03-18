@@ -1,5 +1,7 @@
 import { where } from "sequelize";
 import { Logger } from "../config/logger-config.js";
+import { AppError } from "../utils/errors/app-error.js";
+import { StatusCodes } from "http-status-codes";
 
 export class CrudRepository {
     constructor(model) {
@@ -16,10 +18,15 @@ export class CrudRepository {
 
 
     async destroy(id) {
-        const response = await this.model.delete({
-            where: { id }
-        });
-        return response;
+        try {
+            // Proceed with deletion
+            const response = await this.model.delete({
+                where: { id },
+            });
+            return response
+        } catch (error) {
+            throw new AppError('Record not found', StatusCodes.INTERNAL_SERVER_ERROR)
+        }
     }
 
     async getAll() {

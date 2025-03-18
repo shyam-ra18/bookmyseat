@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { createAirplaneService, getAirplaneById, getAirplanes } from "../services/airplane-service.js";
+import { createAirplaneService, deleteAirplane, getAirplaneById, getAirplanes } from "../services/airplane-service.js";
 import { errorResponse } from "../utils/common/error-response.js";
 import { successResponse } from "../utils/common/success-response.js";
 import { AppError } from "../utils/errors/app-error.js";
@@ -46,6 +46,25 @@ export async function getAirplaneByIdController(req, res) {
         }
 
         successResponse.data = airplane;
+        return res.status(StatusCodes.OK).json(successResponse);
+    } catch (error) {
+        // errorResponse.message = "Something went wrong while creating an airplane.";
+        errorResponse.error = error
+        return res.status(error.statusCode).json(errorResponse);
+    }
+}
+
+export async function deleteAirplaneController(req, res) {
+    try {
+        const { airplaneId } = req.params;
+        const data = await getAirplaneById(airplaneId);
+
+        if (!data) {
+            throw new AppError("Airplane not found.", StatusCodes.NOT_FOUND);
+        }
+        const airplane = await deleteAirplane(airplaneId);
+
+        successResponse.data = airplane.id;
         return res.status(StatusCodes.OK).json(successResponse);
     } catch (error) {
         // errorResponse.message = "Something went wrong while creating an airplane.";

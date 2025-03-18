@@ -31,23 +31,23 @@ model Airplane {
   inService           Boolean  @default(true) // Whether it's in operation
   manufactureDate     DateTime // Date of manufacture
   lastMaintenanceDate DateTime // Last maintenance date
-  flights             Flight[]
+  // flights             []
   createdAt           DateTime @default(now()) // Auto-set creation timestamp
   updatedAt           DateTime @updatedAt // Auto-update timestamp
 
   // @@map("airplanes")
 }
 
-model Flight {
-  id         String   @id @default(uuid())
-  flightCode String   @unique
-  airplaneId String
-  airplane   Airplane @relation(fields: [airplaneId], references: [id])
-  departure  DateTime
-  arrival    DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-}
+// model Flight {
+//   id         String   @id @default(uuid())
+//   flightCode String   @unique
+//   airplaneId String
+//   airplane   Airplane @relation(fields: [airplaneId], references: [id])
+//   departure  DateTime
+//   arrival    DateTime
+//   createdAt  DateTime @default(now())
+//   updatedAt  DateTime @updatedAt
+// }
 
 // Enum for the airplane's status
 enum Status {
