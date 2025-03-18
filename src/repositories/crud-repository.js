@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import { Logger } from "../config/logger-config.js";
 
 export class CrudRepository {
@@ -23,6 +24,13 @@ export class CrudRepository {
 
     async getAll() {
         const response = await this.model.findMany();
+        return response;
+    }
+
+    async getById(id) {
+        const response = await this.model.findUnique({
+            where: { id }
+        });
         return response;
     }
 

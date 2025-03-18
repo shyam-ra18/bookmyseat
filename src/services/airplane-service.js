@@ -25,3 +25,12 @@ export async function getAirplanes() {
         throw new AppError('Cannot get all the airplens', StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
+
+export async function getAirplaneById(id) {
+    try {
+        const airplane = await airplaneRepository.getById(id);
+        return airplane;
+    } catch (error) {
+        throw new AppError('Cannot get the airplen', StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
