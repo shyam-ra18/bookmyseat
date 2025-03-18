@@ -16,3 +16,12 @@ export async function createAirplaneService(data) {
         throw new AppError('Cannot create a new airplen', StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
+
+export async function getAirplanes() {
+    try {
+        const airplanes = await airplaneRepository.getAll();
+        return airplanes;
+    } catch (error) {
+        throw new AppError('Cannot get all the airplens', StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}

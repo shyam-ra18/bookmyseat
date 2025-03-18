@@ -6,51 +6,32 @@ export class CrudRepository {
     }
 
     async create(data) {
-        try {
-            // Prisma create method is slightly different than Sequelize
-            const response = await this.model.create({
-                data: data
-            });
-            return response;
-        } catch (error) {
-            Logger.error('Something went wrong in the Crud Repo: Create');
-            throw error;
-        }
+        // Prisma create method is slightly different than Sequelize
+        const response = await this.model.create({
+            data: data
+        });
+        return response;
     }
 
+
     async destroy(id) {
-        try {
-            const response = await this.model.delete({
-                where: { id }
-            });
-            return response;
-        } catch (error) {
-            Logger.error('Something went wrong in the Crud Repo: Destroy');
-            throw error;
-        }
+        const response = await this.model.delete({
+            where: { id }
+        });
+        return response;
     }
 
     async getAll() {
-        try {
-            const response = await this.model.findMany();
-            return response;
-        } catch (error) {
-            Logger.error('Something went wrong in the Crud Repo: GetAll');
-            throw error;
-        }
+        const response = await this.model.findMany();
+        return response;
     }
 
     async update(id, data) {
-        try {
-            // Prisma update method
-            const response = await this.model.update({
-                where: { id },
-                data: data
-            });
-            return response;
-        } catch (error) {
-            Logger.error('Something went wrong in the Crud Repo: Update');
-            throw error;
-        }
+        // Prisma update method
+        const response = await this.model.update({
+            where: { id },
+            data: data
+        });
+        return response;
     }
 }
