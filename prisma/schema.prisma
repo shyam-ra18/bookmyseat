@@ -38,6 +38,13 @@ model Airplane {
   // @@map("airplanes")
 }
 
+model Cities {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now()) // Auto-set creation timestamp
+  updatedAt DateTime @updatedAt // Auto-update timestamp
+}
+
 // model Flight {
 //   id         String   @id @default(uuid())
 //   flightCode String   @unique

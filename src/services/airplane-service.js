@@ -43,3 +43,12 @@ export async function deleteAirplane(id) {
         throw new AppError('Cannot delete the airplen', StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
+
+export async function updateAirplane(id, data) {
+    try {
+        const airplane = await airplaneRepository.update(id, data);
+        return airplane;
+    } catch (error) {
+        throw new AppError('Cannot delete the airplen', StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
